@@ -133,7 +133,7 @@ public class ScheduleInterpro {
 					System.out.println("Downloading: " + file.getFilename());
 					file.writeTo(new File(file.getFilename()));
 				}
-
+				mongo.close();
 			} else if (optionsInEffect.has(optionParser.report) && optionsInEffect.has(optionParser.projectId)) {
 				String projectid = optionsInEffect.valueOf(optionParser.projectId);
 				System.out.println("Gathering job report for project: " + projectid + "...");
@@ -178,6 +178,7 @@ public class ScheduleInterpro {
 				System.out.println((new StringBuilder("Locked: ")).append(locked).toString());
 				System.out.println((new StringBuilder("Unlocked: ")).append(unlocked).toString());
 				System.out.println();
+				mongo.close();
 			} else if (optionsInEffect.has(optionParser.retract) && optionsInEffect.has(optionParser.projectId)) {
 				String projectid = optionsInEffect.valueOf(optionParser.projectId);
 				System.out.println("Deleting jobs for project: " + projectid + "...");
@@ -212,7 +213,7 @@ public class ScheduleInterpro {
 					System.out.println("Removing: " + file.getFilename());
 					gfs.remove(ObjectId.massageToObjectId(file.getId()));
 				}
-
+				mongo.close();
 			} else if (optionsInEffect.has(optionParser.projectId) && optionsInEffect.has(optionParser.sampleFile)) {
 				String projectid = optionsInEffect.valueOf(optionParser.projectId);
 				File sampleFile = optionsInEffect.valueOf(optionParser.sampleFile);
@@ -477,6 +478,7 @@ public class ScheduleInterpro {
 				mrs.putRecipe(recipe);
 
 				System.out.println("Created: " + recipeId);
+				mongo.close();
 			} else {
 				showUsage = true;
 			}
